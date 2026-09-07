@@ -1,0 +1,123 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 580" width="900" height="580" role="img" aria-labelledby="t d">
+<title id="t">beepboop3000 (bb3) system diagram</title>
+<desc id="d">Block diagram of the bb3 robot: sensors on the left, a Raspberry Pi 3B running ROS 2 Foxy in the centre, and two L298N H-bridges driving four TT DC motors on the right, with two NiMH packs supplying the bridges. An operator sends geometry_msgs/Twist over Wi-Fi; the bb3 node mixes it into four PWM motor signals through pigpiod.</desc>
+
+<style>
+  .bg   { fill: #ffffff; }
+  .box  { fill: #ffffff; stroke: #9a9a9a; stroke-width: 1.2; }
+  .host { fill: #fafafa; stroke: #6f6f6f; stroke-width: 1.4; }
+  .inner{ fill: #ffffff; stroke: #b8b8b8; stroke-width: 1; }
+  .idle { fill: #ffffff; stroke: #c9c9c9; stroke-width: 1.1; stroke-dasharray: 4 3; }
+  .h    { font: 600 14px -apple-system, "Segoe UI", Helvetica, Arial, sans-serif; fill: #111111; }
+  .n    { font: 600 12.5px -apple-system, "Segoe UI", Helvetica, Arial, sans-serif; fill: #111111; }
+  .s    { font: 11px -apple-system, "Segoe UI", Helvetica, Arial, sans-serif; fill: #5f5f5f; }
+  .m    { font: 11px ui-monospace, Menlo, Consolas, monospace; fill: #0b4fa8; }
+  .cap  { font: 11px -apple-system, "Segoe UI", Helvetica, Arial, sans-serif; fill: #777777; }
+  .lbl  { font: 10.5px -apple-system, "Segoe UI", Helvetica, Arial, sans-serif; fill: #6f6f6f; }
+  .wire { stroke: #9a9a9a; stroke-width: 1.2; fill: none; }
+  .flow { stroke: #0b4fa8; stroke-width: 1.8; fill: none; }
+  .pwr  { stroke: #a8a8a8; stroke-width: 1.2; fill: none; stroke-dasharray: 5 3; }
+</style>
+
+<rect class="bg" x="0" y="0" width="900" height="580"/>
+
+<defs>
+  <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+    <path d="M0,0 L10,5 L0,10 z" fill="#9a9a9a"/>
+  </marker>
+  <marker id="af" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+    <path d="M0,0 L10,5 L0,10 z" fill="#0b4fa8"/>
+  </marker>
+</defs>
+
+<text class="h" x="24" y="34">beepboop3000 (bb3) — SLAM-based warehouse rover</text>
+<text class="cap" x="24" y="52">Raspberry Pi 3B · ROS 2 Foxy · pigpio</text>
+
+<!-- operator -->
+<rect class="box" x="330" y="74" width="240" height="42" rx="2"/>
+<text class="n" x="450" y="93" text-anchor="middle">Operator control panel</text>
+<text class="s" x="450" y="108" text-anchor="middle">over local network</text>
+
+<path class="flow" d="M450,116 L450,152" marker-end="url(#af)"/>
+<text class="m" x="460" y="132">geometry_msgs/Twist</text>
+<text class="lbl" x="460" y="146">wlan0 192.168.0.200/24 · eth0 DHCP</text>
+
+<!-- host -->
+<rect class="host" x="290" y="154" width="320" height="250" rx="3"/>
+<text class="n" x="304" y="175">Raspberry Pi 3B</text>
+<text class="s" x="304" y="190">Ubuntu · ROS 2 Foxy</text>
+
+<rect class="inner" x="306" y="202" width="288" height="122" rx="2"/>
+<text class="n" x="318" y="221">bb3 node</text>
+<text class="s" x="318" y="236">Vehicle : rclcpp::Node</text>
+<line class="wire" x1="306" y1="246" x2="594" y2="246"/>
+<text class="s" x="318" y="264">subscribe Twist → linear.x, angular.z</text>
+<text class="s" x="318" y="281">clamp to [−1, 1]</text>
+<text class="s" x="318" y="298">differential mix: a turn slows the inner pair</text>
+<text class="s" x="318" y="315">4 × Motor::set(signal) → dir + PWM 0–255</text>
+
+<rect class="inner" x="306" y="336" width="288" height="52" rx="2"/>
+<text class="n" x="318" y="355">pigpiod</text>
+<text class="s" x="318" y="371">GPIO 5,6,11,13,19,26 · 7,12,16,20,21,25</text>
+
+<!-- sensors -->
+<text class="n" x="24" y="176">Sensing</text>
+<rect class="idle" x="24" y="188" width="216" height="46" rx="2"/>
+<text class="n" x="36" y="207">YDLIDAR X4</text>
+<text class="s" x="36" y="223">5 Hz · 0.5° · 10 m · USB serial</text>
+
+<rect class="idle" x="24" y="244" width="216" height="46" rx="2"/>
+<text class="n" x="36" y="263">Pi HQ Camera</text>
+<text class="s" x="36" y="279">6 mm lens · CSI</text>
+
+<rect class="idle" x="24" y="300" width="216" height="46" rx="2"/>
+<text class="n" x="36" y="319">MPU9250</text>
+<text class="s" x="36" y="335">9-DOF accel/gyro/mag · I²C</text>
+
+<rect class="idle" x="24" y="356" width="216" height="46" rx="2"/>
+<text class="n" x="36" y="375">HC-SR04</text>
+<text class="s" x="36" y="391">ultrasonic range · GPIO</text>
+
+<path class="wire" d="M240,211 L266,211 L266,278 L290,278" marker-end="url(#a)"/>
+<path class="wire" d="M240,267 L266,267" marker-end="url(#a)"/>
+<path class="wire" d="M240,323 L266,323 L266,278" />
+<path class="wire" d="M240,379 L266,379 L266,323" />
+
+<!-- actuation -->
+<text class="n" x="660" y="176">Actuation</text>
+<rect class="box" x="660" y="188" width="216" height="60" rx="2"/>
+<text class="n" x="672" y="207">L298N dual H-bridge ×2</text>
+<text class="s" x="672" y="223">dir pins + enable PWM</text>
+<text class="s" x="672" y="239">one bridge per side</text>
+
+<rect class="box" x="660" y="268" width="216" height="60" rx="2"/>
+<text class="n" x="672" y="287">TT DC motor ×4</text>
+<text class="s" x="672" y="303">65 mm rubber wheels</text>
+<text class="s" x="672" y="319">skid-steer, left pair / right pair</text>
+
+<path class="flow" d="M610,362 L636,362 L636,218 L660,218" marker-end="url(#af)"/>
+<text class="m" x="628" y="300" text-anchor="middle" transform="rotate(-90 628 300)">PWM + dir</text>
+<path class="flow" d="M768,248 L768,268" marker-end="url(#af)"/>
+
+<!-- power -->
+<text class="n" x="660" y="378">Power</text>
+<rect class="box" x="660" y="390" width="216" height="56" rx="2"/>
+<text class="n" x="672" y="409">8 × AA NiMH ×2 packs</text>
+<text class="s" x="672" y="425">1.2 V · 1900 mAh each</text>
+<text class="s" x="672" y="441">one pack per bridge</text>
+
+<path class="pwr" d="M700,390 L700,340 L700,328" marker-end="url(#a)"/>
+<path class="pwr" d="M836,390 L836,248" marker-end="url(#a)"/>
+
+<!-- legend -->
+<line class="wire" x1="24" y1="470" x2="876" y2="470"/>
+<rect class="idle" x="24" y="486" width="26" height="14" rx="2"/>
+<text class="s" x="58" y="497">on the platform; no driver in the bb3 ROS package yet</text>
+<line class="flow" x1="330" y1="493" x2="356" y2="493" marker-end="url(#af)"/>
+<text class="s" x="364" y="497">control path implemented in this repo</text>
+<line class="pwr" x1="660" y1="493" x2="686" y2="493"/>
+<text class="s" x="694" y="497">power</text>
+
+<text class="cap" x="24" y="528">Planned: Jetson Nano · 80 mm mecanum wheels · 775 motors · 4S LiPo · 4-channel bridge · custom chassis</text>
+<text class="cap" x="24" y="548">Drawn from the repository: README platform list, main.cpp GPIO map, Vehicle.h mixing, Motor.h PWM.</text>
+</svg>
