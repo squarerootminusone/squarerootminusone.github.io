@@ -141,6 +141,13 @@ h2[id] { scroll-margin-top: 3.2em; }
 }
 .entry p { margin: .25em 0 0; }
 
+.entry .pub {
+  margin-top: .4em;
+  font-size: .88em;
+  color: #666666;
+}
+.entry .pub b { color: #111111; font-weight: 600; }
+
 /* detail pages */
 .back { font-size: .9em; margin: 0 0 1.6em; }
 .back a { text-decoration: none; }
