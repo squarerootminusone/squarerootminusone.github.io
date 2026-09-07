@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Paul Misterka</title>
+<meta name="description" content="Paul Misterka — MSc student in Artificial Intelligence and Robotics at TU Delft. Robot learning, computer vision, physics-constrained generative models.">
+<meta name="author" content="Paul Misterka">
+<link rel="canonical" href="https://paulmis.github.io/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Paul Misterka">
+<meta property="og:description" content="Robot learning, computer vision, physics-constrained generative models.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ctext y='26' font-size='26' font-family='Helvetica,Arial'%3EP%3C/text%3E%3C/svg%3E">
+<style>
+  :root { color-scheme: light; }
+
+  html { -webkit-text-size-adjust: 100%; }
+
+  body {
+    background: #ffffff;
+    color: #111111;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    font-size: 15px;
+    line-height: 1.55;
+    max-width: 46em;
+    margin: 0 auto;
+    padding: 2.5em 1.25em 5em;
+  }
+
+  a { color: #0b4fa8; }
+  a:visited { color: #0b4fa8; }
+  a:hover { color: #062f66; }
+  a:focus-visible { outline: 2px solid #0b4fa8; outline-offset: 2px; }
+
+  h1 {
+    font-size: 1.7em;
+    font-weight: 700;
+    margin: 0 0 .15em;
+    letter-spacing: -.01em;
+  }
+
+  h2 {
+    font-size: 1em;
+    font-weight: 700;
+    margin: 2.6em 0 .2em;
+    padding-bottom: .3em;
+    border-bottom: 1px solid #dddddd;
+  }
+
+  h3 {
+    font-size: 1em;
+    font-weight: 600;
+    margin: 1.5em 0 0;
+  }
+
+  p { margin: .5em 0; }
+
+  .tagline { color: #444444; margin: 0 0 1.2em; }
+
+  .meta { color: #666666; font-size: .9em; margin: .1em 0 .4em; }
+
+  ul { margin: .5em 0; padding-left: 1.4em; }
+  li { margin: .15em 0; }
+
+  ul.plain { list-style: none; padding-left: 0; }
+  ul.plain li { margin: .35em 0; }
+
+  ul.contact { list-style: none; padding-left: 0; margin: 1em 0 0; }
+  ul.contact li { display: inline; margin: 0; }
+  ul.contact li::after { content: " · "; color: #999999; }
+  ul.contact li:last-child::after { content: ""; }
+
+  code, .mono {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: .92em;
+  }
+
+  .note { color: #666666; }
+
+  footer {
+    margin-top: 3.5em;
+    padding-top: 1em;
+    border-top: 1px solid #dddddd;
+    color: #666666;
+    font-size: .9em;
+  }
+
+  @media (max-width: 34em) {
+    body { font-size: 15px; padding: 1.75em 1em 3.5em; }
+    h1 { font-size: 1.5em; }
+  }
+</style>
+</head>
+<body>
+
+<h1>Paul Misterka</h1>
+<p class="tagline">Robot learning, computer vision, physics-constrained generative models.</p>
+
+<p>MSc student in Artificial Intelligence and Robotics at Delft University of Technology, on exchange at EPFL. I work on vision–language–action policies — what they actually ground, and where they break under distribution shift — and on diffusion models trained against the PDEs their samples are meant to satisfy.</p>
+
+<p>Previously Forward Deployed Engineer intern at Palantir, Solutions Architect at AWS, and teaching assistant for FPGA and power-electronics labs at TU Delft.</p>
+
+<ul class="contact">
+  <li><a href="mailto:pawel.mist@gmail.com">pawel.mist@gmail.com</a></li>
+  <li><a href="https://scholar.google.com/citations?user=dSnbqvMAAAAJ&amp;hl=en">Google Scholar</a></li>
+  <li><a href="https://github.com/squarerootminusone">GitHub</a></li>
+  <li><a href="https://github.com/paulmis">GitHub (older)</a></li>
+  <li>Delft, the Netherlands</li>
+</ul>
+
+<h2>Research</h2>
+
+<h3>VLA scaling with newer VLM backbones</h3>
+<p class="meta">2026 — in progress</p>
+<p>A controlled backbone-swap study for vision–language–action policies: holding the action expert and training recipe fixed while exchanging the underlying vision–language model, to separate what the policy gains from a stronger perceptual prior from what it gains from more action data. Arms on SmolVLA and PaliGemma, evaluated on LIBERO.</p>
+
+<h3>What vision–language–action models fail to ground</h3>
+<p class="meta">2026 · BOMB: a Board Manipulation Benchmark · <a href="https://hackmd.io/@soZ5hy2XQ5ia8pihx7AdHQ/r1gbwuUibe">write-up</a> · <a href="https://github.com/squarerootminusone/BOMB">code</a></p>
+<p>Current VLA benchmarks reward coarse semantic manipulation — pick the red block, open the drawer — and so overstate how well these policies handle the fine spatial grounding real tasks need. We built a simulated Go-stone placement benchmark, where the policy must put a stone on a board coordinate named in language, and evaluated OpenVLA, OpenVLA-OFT, SpatialVLA and &pi;<sub>0</sub> on it.</p>
+<p>Beyond success rates, we ran intervention-based explainability: masking image patches and text tokens to find which inputs the policy actually consumes, and activation mapping to localise where the coordinate is processed. The dominant failure mode is specific — models track the stone and the gripper adequately, but do not robustly ground a language-specified coordinate to a placement location.</p>
+<ul>
+  <li>34% success for OpenVLA without perturbation</li>
+  <li>0% for every model under visual distribution shift — lighting, camera pose, object arrangement</li>
+  <li>offline metrics stayed reasonable throughout the collapse</li>
+</ul>
+
+<h3>Reproducing physics-informed diffusion models</h3>
+<p class="meta">2026 · after Bastek, Sun &amp; Kochmann, ICLR 2025 · <a href="https://hackmd.io/kHh9ceF0Sb-G29PUUBI3zg?both=">write-up</a> · <a href="https://github.com/squarerootminusone/PhysicsInformedDiffusionModels">code</a></p>
+<p>Whether a diffusion model can carry a PDE constraint in its training objective, rather than being corrected after the fact. We replicated all five variants — plain diffusion, PG-Diffusion, CoCoGen, PIDM-ME, PIDM-SE — on Darcy flow and topology optimisation, and added Sliced Wasserstein Distance alongside residual error and test loss, because a model can drive its residual down while its sample distribution drifts.</p>
+<p>The reproduction held, and the ablations found the method sensitive to residual-loss weighting and to the training noise schedule. Reduced-precision training turned out to act as a regulariser rather than a cost.</p>
+<ul>
+  <li>residuals matched the paper to within 3%</li>
+  <li>Darcy residual error 1.2&nbsp;&times;&nbsp;10<sup>&minus;2</sup> &rarr; 5.5&nbsp;&times;&nbsp;10<sup>&minus;3</sup> (≈56%) from hyperparameter search</li>
+  <li>training wall-clock 13&nbsp;h &rarr; 44&nbsp;min — hardware selection, compiled kernels, bf16</li>
+</ul>
+
+<h3>An image processing pipeline for satellite and aerial imagery</h3>
+<p class="meta">2026 · Group 13, Applied Image Processing, TU Delft · with A. Kheskani, C. Scorția, V. Petkov</p>
+<p>An end-to-end enhancement pipeline over AVIRIS-NG hyperspectral surveys (425 bands, 390–2510&nbsp;nm, 5.8&nbsp;m sampling) and USGS LiDAR. My contribution covered hyperspectral preprocessing and the multispectral indices — NDVI, NDRE, HDWI, TCARI/OSAVI — a hyperspectral zero-shot single-image super-resolution model, and mineral identification by spectral angle against the USGS library.</p>
+<p>Zero-shot super-resolution needed reworking for spectral data: 3D convolutions in place of 2D, trilinear interpolation across the cube instead of per-band bicubic, and an ensemble L<sub>1</sub> + Spectral Angle Mapper loss to keep each pixel's spectral response intact under upscaling. The rest of the group contributed stitching, dual-branch cloud removal, SAM-guided object editing, U-Net segmentation and LiDAR–bathymetry depth fusion.</p>
+<ul>
+  <li>ZSSR 25.57&nbsp;dB vs 24.23&nbsp;dB for trilinear interpolation</li>
+  <li>~1000&times; speedup on spectral angle matching via multithreaded batch comparison</li>
+  <li>dual-branch cloud removal 28.9&nbsp;dB / 0.87 SSIM on SEN12MS-CR, over 27.1 / 0.84 single-branch</li>
+</ul>
+
+<h3>A control dataset for non-local transition structure</h3>
+<p class="meta">2026 · <a href="https://github.com/squarerootminusone/wormhole-control-dataset">code &amp; write-up</a></p>
+<p>A gridworld with walls and wormholes, built as a control dataset for the original DQN result. The question it isolates: does a convolutional value predictor learn that two distant cells are one step apart, or does it fall back on spatial proximity? The experiment trains on small wormhole gaps and tests on large ones, against a wormhole-ablated control input and naive distance baselines — then repeats on harder maps with randomised positions and decoy wormholes.</p>
+
+<h3>Data and computational efficiency in temporal action localization</h3>
+<p class="meta">2023 · BSc thesis, TU Delft Computer Vision Lab · advised by A. Lengyel and O. Strafforello · <a href="https://github.com/paulmis/tal">code</a></p>
+<p>Temporal action localization models are compared on full datasets and unlimited compute, which is not the regime most people train them in. We measured data efficiency by training on progressively reduced datasets and computational efficiency across video lengths, and derived development practices from the result: TemporalMaxer holds up best when data is scarce and is cheapest at inference, TriDet when training time is the binding constraint.</p>
+
+<h2>Publications</h2>
+
+<ul class="plain">
+  <li>J. Warchocki, T. Oprescu, Y. Wang, A. Dămăcuş, <b>P. Misterka</b>, R.-J. Bruintjes, A. Lengyel, O. Strafforello, J. van Gemert. Benchmarking data efficiency and computational efficiency of temporal action localization models. <i>IEEE/CVF International Conference on Computer Vision Workshops (ICCVW)</i>, 2023. <a href="https://arxiv.org/abs/2308.13082">arXiv:2308.13082</a></li>
+  <li><b>P. Misterka</b>, A. Lengyel, O. Strafforello. Efficient temporal action localization model development practices. <i>BSc thesis, Delft University of Technology</i>, 2023.</li>
+</ul>
+
+<h2>Software</h2>
+
+<ul class="plain">
+  <li><a href="https://github.com/squarerootminusone/PhysicsInformedDiffusionModels" class="mono">PhysicsInformedDiffusionModels</a> — PDE-constrained diffusion training, five variants, Darcy and topology optimisation</li>
+  <li><a href="https://github.com/squarerootminusone/BOMB" class="mono">BOMB</a> — Go-placement benchmark for VLA architectures</li>
+  <li><a href="https://github.com/squarerootminusone/wormhole-control-dataset" class="mono">wormhole-control-dataset</a> — gridworld control dataset for value-prediction claims</li>
+  <li><a href="https://github.com/squarerootminusone/alleles" class="mono">alleles</a> — two-phase model of a de novo beneficial mutation timeline, against genetic drift</li>
+  <li><a href="https://github.com/squarerootminusone/rl-gauntlet" class="mono">rl-gauntlet</a> — competitive RL playground: Gymnasium environments, matchmaking, bot registry</li>
+  <li><a href="https://github.com/paulmis/pocre" class="mono">pocre</a> — OCR engine for computer-generated text, five-nines accuracy</li>
+  <li><a href="https://github.com/squarerootminusone/districtsim" class="mono">districtsim</a> — hex-grid district adjacency simulator with a map editor</li>
+  <li><a href="https://github.com/paulmis/collegerama" class="mono">collegerama</a> — lecture downloader for TU Delft's Collegerama</li>
+  <li><a href="https://github.com/paulmis/hackdelft2022" class="mono">hackdelft2022</a> — asylum application trend prediction from social media signal</li>
+  <li><a href="https://github.com/paulmis/beepboop3000" class="mono">beepboop3000</a> — autonomous SLAM vehicle prototype</li>
+</ul>
+
+<h2>Experience</h2>
+
+<h3>Forward Deployed Engineer, Intern — Palantir Technologies</h3>
+<p class="meta">London, 2026</p>
+<p>Built classical and agentic workflows with four non-technical teams at a financial services client; an architecture review I ran triggered a multi-week refactoring of the production platform. Scoped and prototyped a sim2real2sim robotics observability and training platform.</p>
+
+<h3>Technical Staff — MicroAGI</h3>
+<p class="meta">Munich, 2026</p>
+<p>Led early cloud infrastructure and provider negotiations; built the core Kubernetes CPU + GPU embodied-vision pipeline for egocentric robotics data.</p>
+
+<h3>Solutions Architect — Amazon Web Services</h3>
+<p class="meta">Amsterdam, 2023–2025</p>
+<p>Built and maintained a worldwide cross-org semantic and hybrid search platform serving 10k+ internal users. Led system design and architecture reviews with senior stakeholders in manufacturing and semiconductor enterprises; mentored 16 interns.</p>
+
+<h3>Teaching &amp; Research Assistant — TU Delft</h3>
+<p class="meta">Delft, 2022–present</p>
+<p>VHDL/Verilog FPGA programming (Quartus, Vivado) and power electronics labs.</p>
+
+<h3>Computer Vision Engineer, Intern — S4FE</h3>
+<p class="meta">Barcelona, 2022</p>
+<p>Led a team of five building GDPR-compliant edge crowd tracking; a KNN background extraction step that removed the static feed gave a 3× inference speedup.</p>
+
+<h2>Education</h2>
+
+<h3>MSc Artificial Intelligence (DSAIT), MSc Robotics — TU Delft</h3>
+<p class="meta">2025–present · exchange at EPFL, Fall 2026</p>
+<p>Deep reinforcement learning, applied experimental methods, 3D visual computing, robot dynamics and control, advanced multiprocessor architecture, semiconductor devices, radar theory and system design.</p>
+
+<h3>BSc Computer Science &amp; Engineering — TU Delft</h3>
+<p class="meta">2020–2023 · minor in Electronics for Robotics</p>
+<p>Thesis in the TU Delft Computer Vision Lab; also at Robohouse.</p>
+
+<h2>Service and activities</h2>
+
+<h3>Public Relations Lead — Makerspace Delft</h3>
+<p class="meta">2022–2023</p>
+<p>Raised $20k+ in grants and sponsorships, ran recruiting rounds and a promotional strategy behind ~50% year-on-year membership growth, and founded the software engineering department for internal IT and embedded support.</p>
+
+<h3>Core Member — Google Developer Student Club, Delft</h3>
+<p class="meta">2022–2023</p>
+<p>Led a precision-agriculture UAV project — a multispectral deep vision pipeline on DeepLabV3+ detecting nutrient deficiencies, pests, overplanting and flooding.</p>
+
+<h3>Contests</h3>
+<p>Informatics Olympiad ’17–’19 · Benelux Algorithmic Programming Contest ’21 · HackDelft ’22 · LauzHack ’23 · European Health Hackathon ’23 · Mercuria ’23 · European Builders League ’25 · Amsterdam Policy Hackathon ’25 · European Defense Tech Hackathon ’25 · HackEurope ’26 (winning team) · ETHRC ’26</p>
+
+<footer>
+  Last updated September 2026 · Delft, the Netherlands
+</footer>
+
+</body>
+</html>
