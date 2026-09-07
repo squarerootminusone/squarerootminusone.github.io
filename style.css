@@ -71,6 +71,20 @@ li { margin: .15em 0; }
 ul.plain { list-style: none; padding-left: 0; }
 ul.plain li { margin: .35em 0; }
 
+ul.rows li {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1.2em;
+}
+
+.where {
+  flex: 0 0 auto;
+  color: #666666;
+  font-size: .9em;
+  white-space: nowrap;
+}
+
 
 ul.contact { list-style: none; padding-left: 0; margin: 1.2em 0 0; }
 ul.contact li { display: inline; margin: 0; }
