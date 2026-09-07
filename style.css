@@ -51,9 +51,7 @@ p { margin: .5em 0; }
 
 .rail {
   flex: 0 0 auto;
-  position: sticky;
-  top: 1.6em;
-  align-self: flex-start;
+  align-self: stretch;
 }
 
 .photo {
@@ -95,6 +93,8 @@ code, .mono {
 .note { color: #666666; }
 
 .tabs {
+  position: sticky;
+  top: 1.6em;
   display: flex;
   flex-direction: column;
   gap: .3em;
@@ -145,7 +145,8 @@ footer {
   body { font-size: 15px; padding: 1.75em 1em 3.5em; }
   h1 { font-size: 1.5em; }
   .layout { flex-direction: column; gap: 1em; }
-  .rail { position: static; }
+  .rail { align-self: auto; }
+  .tabs { position: static; }
   .photo { width: 118px; margin-top: 0; }
   .tabs { flex-direction: row; flex-wrap: wrap; gap: .2em 1.2em; margin-top: .8em; }
 }
