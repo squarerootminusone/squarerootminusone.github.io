@@ -16,7 +16,15 @@
 </head>
 <body>
 
+<nav class="tabs" aria-label="Sections">
+  <a href="#research">Research</a>
+  <a href="#publications">Publications</a>
+  <a href="#projects">Projects</a>
+  <a href="#contests">Contests</a>
+</nav>
+
 <div class="header">
+<img class="photo" src="paul.png" alt="Paul Misterka" width="220" height="334">
 <div class="header-text">
 
 <h1>Paul Misterka</h1>
@@ -35,10 +43,9 @@
 </ul>
 
 </div>
-<img class="photo" src="paul.png" alt="Paul Misterka" width="220" height="334">
 </div>
 
-<h2>Research</h2>
+<h2 id="research">Research</h2>
 
 <div class="entry">
   <h3><a href="research/vla-backbones/">VLA scaling with newer VLM backbones</a></h3>
@@ -76,14 +83,14 @@
   <p>Which temporal action localization models hold up when training data, or training time, is the binding constraint.</p>
 </div>
 
-<h2>Publications</h2>
+<h2 id="publications">Publications</h2>
 
 <ul class="plain">
   <li>J. Warchocki, T. Oprescu, Y. Wang, A. Dămăcuş, <b>P. Misterka</b>, R.-J. Bruintjes, A. Lengyel, O. Strafforello, J. van Gemert. Benchmarking data efficiency and computational efficiency of temporal action localization models. <i>IEEE/CVF International Conference on Computer Vision Workshops (ICCVW)</i>, 2023. <a href="https://arxiv.org/abs/2308.13082">arXiv:2308.13082</a></li>
   <li><b>P. Misterka</b>, A. Lengyel, O. Strafforello. Efficient temporal action localization model development practices. <i>BSc thesis, Delft University of Technology</i>, 2023.</li>
 </ul>
 
-<h2>Projects</h2>
+<h2 id="projects">Projects</h2>
 
 <ul class="plain">
   <li><a href="https://github.com/squarerootminusone/PhysicsInformedDiffusionModels" class="mono">PhysicsInformedDiffusionModels</a> — PDE-constrained diffusion training, five variants, Darcy and topology optimisation</li>
@@ -98,7 +105,7 @@
   <li><a href="https://github.com/paulmis/beepboop3000" class="mono">beepboop3000</a> — autonomous SLAM vehicle prototype</li>
 </ul>
 
-<h2>Contests</h2>
+<h2 id="contests">Contests</h2>
 
 <ul class="plain">
   <li>HackEurope ’26 — winning team</li>
@@ -110,6 +117,26 @@
 <footer>
   Last updated September 2026 · Delft, the Netherlands
 </footer>
+
+<script>
+(function () {
+  var links = Array.prototype.slice.call(document.querySelectorAll('.tabs a'));
+  var secs = links.map(function (a) { return document.getElementById(a.getAttribute('href').slice(1)); });
+  var queued = false;
+  function update() {
+    queued = false;
+    var y = window.scrollY + 90, cur = 0;
+    for (var i = 0; i < secs.length; i++) {
+      if (secs[i] && secs[i].offsetTop <= y) cur = i;
+    }
+    links.forEach(function (a, i) { a.classList.toggle('active', i === cur); });
+  }
+  window.addEventListener('scroll', function () {
+    if (!queued) { queued = true; requestAnimationFrame(update); }
+  }, { passive: true });
+  update();
+})();
+</script>
 
 </body>
 </html>

@@ -45,7 +45,7 @@ p { margin: .5em 0; }
   display: flex;
   gap: 2em;
   align-items: flex-start;
-  justify-content: space-between;
+  justify-content: flex-start;
 }
 
 .header-text { flex: 1 1 auto; min-width: 0; }
@@ -88,6 +88,26 @@ code, .mono {
 
 .note { color: #666666; }
 
+.tabs {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 1.4em;
+  margin: 0 0 2em;
+  padding: .5em 0 .6em;
+  background: #ffffff;
+  border-bottom: 1px solid #dddddd;
+  font-size: .92em;
+}
+.tabs a { color: #555555; text-decoration: none; }
+.tabs a:hover { color: #0b4fa8; }
+.tabs a.active { color: #111111; font-weight: 600; }
+
+/* first heading sits right under the bar; the rest clear it when jumped to */
+h2[id] { scroll-margin-top: 3.2em; }
+
 /* research index — one line per project, linking to its own page */
 .entry { margin: 1.4em 0; }
 .entry h3 { margin: 0; }
@@ -110,6 +130,6 @@ footer {
 @media (max-width: 34em) {
   body { font-size: 15px; padding: 1.75em 1em 3.5em; }
   h1 { font-size: 1.5em; }
-  .header { flex-direction: column-reverse; gap: 1em; align-items: flex-start; }
+  .header { flex-direction: column; gap: .8em; align-items: flex-start; }
   .photo { width: 118px; margin-top: 0; }
 }
