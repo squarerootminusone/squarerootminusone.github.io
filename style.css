@@ -61,7 +61,7 @@ p { margin: .5em 0; }
   margin-top: .1em;
 }
 
-.tagline { color: #444444; margin: 0 0 1.2em; }
+.tagline { color: #444444; margin: .35em 0 0; }
 
 .meta { color: #666666; font-size: .9em; margin: .1em 0 .4em; }
 
@@ -71,7 +71,6 @@ li { margin: .15em 0; }
 ul.plain { list-style: none; padding-left: 0; }
 ul.plain li { margin: .35em 0; }
 
-ul.intro { margin: .6em 0 0; }
 
 ul.contact { list-style: none; padding-left: 0; margin: 1.2em 0 0; }
 ul.contact li { display: inline; margin: 0; }
