@@ -23,6 +23,11 @@
 
 <p>We added Sliced Wasserstein Distance alongside residual error and test loss, because a model can drive its residual down while its sample distribution quietly drifts; residual error alone does not catch that. The reproduction held, and the ablations found the method sensitive to residual-loss weighting and to the training noise schedule. Reduced-precision training turned out to act as a regulariser rather than a cost.</p>
 
+<figure>
+  <img src="darcy.png" alt="Four panels: injection and extraction wells, a log-normal permeability field, the pressure solution, and Darcy flux streamlines." width="1200" height="279">
+  <figcaption>The Darcy problem the model is constrained to satisfy: wells, a log-normal permeability field, the resulting pressure, and the induced flux.</figcaption>
+</figure>
+
 <h2>Results</h2>
 <ul>
   <li>Residuals matched the published figures to within 3%</li>

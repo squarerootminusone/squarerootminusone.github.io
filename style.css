@@ -103,6 +103,16 @@ code, .mono {
   font-size: .92em;
 }
 
+figure { margin: 1.5em 0; }
+figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid #e5e5e5;
+}
+figure.small img { width: 256px; max-width: 100%; }
+figcaption { font-size: .85em; color: #666666; margin-top: .45em; }
+
 .note { color: #666666; }
 
 .tabs {

@@ -23,6 +23,11 @@
 
 <p>Beyond success rates, we ran intervention-based explainability: masking image patches and text tokens to find which inputs the policy actually consumes, and activation mapping to localise where in the network the coordinate is processed. The dominant failure mode is specific — models track the stone and the gripper adequately, but do not robustly ground a language-specified coordinate to a placement location.</p>
 
+<figure class="small">
+  <img src="scene.png" alt="Simulated scene: a robot gripper above a five-by-five Go board on a wooden table, with black and white stones placed on it." width="256" height="256">
+  <figcaption>A benchmark episode — the policy must place a stone on the coordinate named in the instruction.</figcaption>
+</figure>
+
 <h2>Results</h2>
 <ul>
   <li>34% success for OpenVLA without perturbation</li>
@@ -38,7 +43,7 @@
   <li>Activation mapping to localise where critical information is processed across layers</li>
 </ul>
 
-<p class="note">Joint work with two others on the TU Delft MSc AI programme.</p>
+<p class="note">Joint work with two others.</p>
 
 <footer>
   <a href="../../">Back to index</a>
