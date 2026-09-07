@@ -103,6 +103,24 @@ code, .mono {
   font-size: .92em;
 }
 
+ul.projects li {
+  display: flex;
+  gap: 1em;
+  align-items: flex-start;
+  margin: .9em 0;
+}
+
+.thumb {
+  flex: 0 0 auto;
+  width: 140px;
+  height: 92px;
+  object-fit: contain;
+  background: #ffffff;
+  border: 1px solid #e5e5e5;
+}
+
+.thumb-none { border-style: dashed; border-color: #eeeeee; }
+
 figure { margin: 1.5em 0; }
 figure img {
   display: block;
@@ -132,7 +150,7 @@ figcaption { font-size: .85em; color: #666666; margin-top: .45em; }
 h2[id] { scroll-margin-top: 3.2em; }
 
 /* research index — one line per project, linking to its own page */
-.entry { margin: 1.4em 0; }
+.entry { margin: .95em 0; }
 .entry h3 {
   margin: 0;
   display: flex;
