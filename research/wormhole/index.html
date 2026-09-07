@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>A control dataset for non-local transition structure — Paul Misterka</title>
+<meta name="description" content="A wormhole gridworld testing whether a convolutional value predictor learns non-local transitions or falls back on spatial proximity.">
+<link rel="canonical" href="https://paulm.ist/research/wormhole/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="A control dataset for non-local transition structure">
+<meta property="og:description" content="A wormhole gridworld testing whether a convolutional value predictor learns non-local transitions or falls back on spatial proximity.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ctext y='26' font-size='26' font-family='Helvetica,Arial'%3EP%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+
+<p class="back"><a href="../../">&larr; Paul Misterka</a></p>
+
+<h1>A control dataset for non-local transition structure</h1>
+<p class="meta">June 2026 · <a href="https://github.com/squarerootminusone/wormhole-control-dataset">code and write-up</a></p>
+
+<p>A gridworld with walls and wormholes, built as a control dataset for the original DQN result. The question it isolates is narrow: does a convolutional value predictor learn that two distant cells are one step apart, or does it fall back on spatial proximity in the image?</p>
+
+<p>The experiment trains a small CNN value predictor on maps with small wormhole gaps and tests on large ones, against naive distance baselines and against a wormhole-ablated control input. It then repeats the whole thing on harder maps with randomised positions and decoy wormholes, so that a model cannot pass by memorising layout.</p>
+
+<h2>Design</h2>
+<ul>
+  <li>Gridworld with walls and wormholes, ASCII rendering, BFS ground-truth distances</li>
+  <li>Dataset swept over map size and wormhole separation, generated deterministically</li>
+  <li>Train on small gaps, test on large gaps — the split is what makes proximity shortcuts fail</li>
+  <li>Wormhole-ablation control input isolates the contribution of the non-local structure</li>
+  <li>Two regimes: original maps, and harder maps with randomised positions and decoy wormholes</li>
+</ul>
+
+<footer>
+  <a href="../../">Back to index</a>
+</footer>
+
+</body>
+</html>

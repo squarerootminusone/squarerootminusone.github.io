@@ -1,0 +1,97 @@
+:root { color-scheme: light; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  background: #ffffff;
+  color: #111111;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  font-size: 15px;
+  line-height: 1.55;
+  max-width: 46em;
+  margin: 0 auto;
+  padding: 2.5em 1.25em 5em;
+}
+
+a { color: #0b4fa8; }
+a:visited { color: #0b4fa8; }
+a:hover { color: #062f66; }
+a:focus-visible { outline: 2px solid #0b4fa8; outline-offset: 2px; }
+
+h1 {
+  font-size: 1.7em;
+  font-weight: 700;
+  margin: 0 0 .15em;
+  letter-spacing: -.01em;
+}
+
+h2 {
+  font-size: 1em;
+  font-weight: 700;
+  margin: 2.6em 0 .2em;
+  padding-bottom: .3em;
+  border-bottom: 1px solid #dddddd;
+}
+
+h3 {
+  font-size: 1em;
+  font-weight: 600;
+  margin: 1.5em 0 0;
+}
+
+p { margin: .5em 0; }
+
+.tagline { color: #444444; margin: 0 0 1.2em; }
+
+.meta { color: #666666; font-size: .9em; margin: .1em 0 .4em; }
+
+ul { margin: .5em 0; padding-left: 1.4em; }
+li { margin: .15em 0; }
+
+ul.plain { list-style: none; padding-left: 0; }
+ul.plain li { margin: .35em 0; }
+
+ul.intro { margin: .6em 0 0; }
+
+ul.contact { list-style: none; padding-left: 0; margin: 1.2em 0 0; }
+ul.contact li { display: inline; margin: 0; }
+ul.contact li::after { content: " · "; color: #999999; }
+ul.contact li:last-child::after { content: ""; }
+ul.contact svg {
+  width: 1em;
+  height: 1em;
+  vertical-align: -.14em;
+  margin-right: .32em;
+  fill: currentColor;
+}
+
+code, .mono {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: .92em;
+}
+
+.note { color: #666666; }
+
+/* research index — one line per project, linking to its own page */
+.entry { margin: 1.4em 0; }
+.entry h3 { margin: 0; }
+.entry .meta { margin: .1em 0 .25em; }
+.entry p { margin: 0; }
+
+/* detail pages */
+.back { font-size: .9em; margin: 0 0 1.6em; }
+.back a { text-decoration: none; }
+.back a:hover { text-decoration: underline; }
+
+footer {
+  margin-top: 3.5em;
+  padding-top: 1em;
+  border-top: 1px solid #dddddd;
+  color: #666666;
+  font-size: .9em;
+}
+
+@media (max-width: 34em) {
+  body { font-size: 15px; padding: 1.75em 1em 3.5em; }
+  h1 { font-size: 1.5em; }
+}

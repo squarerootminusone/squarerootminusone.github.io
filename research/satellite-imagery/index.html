@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>An image processing pipeline for satellite and aerial imagery — Paul Misterka</title>
+<meta name="description" content="Hyperspectral preprocessing, zero-shot super-resolution and spectral-angle mineral mapping over AVIRIS-NG airborne surveys.">
+<link rel="canonical" href="https://paulm.ist/research/satellite-imagery/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="An image processing pipeline for satellite and aerial imagery">
+<meta property="og:description" content="Hyperspectral preprocessing, zero-shot super-resolution and spectral-angle mineral mapping over AVIRIS-NG airborne surveys.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ctext y='26' font-size='26' font-family='Helvetica,Arial'%3EP%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+
+<p class="back"><a href="../../">&larr; Paul Misterka</a></p>
+
+<h1>An image processing pipeline for satellite and aerial imagery</h1>
+<p class="meta">December 2025 – January 2026 · Applied Image Processing, TU Delft · with A. Kheskani, C. Scorția and V. Petkov</p>
+
+<p>An end-to-end enhancement pipeline over AVIRIS-NG hyperspectral surveys — 425 bands, 390–2510&nbsp;nm, 5.8&nbsp;m spatial sampling — together with USGS LiDAR. My contribution covered hyperspectral preprocessing and the multispectral indices, a hyperspectral zero-shot single-image super-resolution model, and mineral identification by spectral angle against the USGS spectral library.</p>
+
+<h2>My contribution</h2>
+
+<h3>Hyperspectral preprocessing and indices</h3>
+<p>Loading and preprocessing the cubes, removing noisy mid-infrared bands corrupted by atmospheric moisture, normalising out artifact outliers, and producing a true-colour approximation with tunable gamma and saturation. Four vegetation and water indices: NDVI, NDRE, HDWI and TCARI/OSAVI. HDWI works outside the noisy SWIR bands around 1450&nbsp;nm and in testing gave markedly more precise water-body delineation than the standard NDWI.</p>
+
+<h3>Zero-shot single-image super-resolution</h3>
+<p>Zero-shot super-resolution needed reworking for spectral data. 3D convolutions in place of the original 2D; trilinear interpolation across the whole cube rather than per-band bicubic, so cross-band correlation survives; and an ensemble L<sub>1</sub> + Spectral Angle Mapper loss to keep each pixel's spectral response intact under upscaling. Training uses a multiscale pyramid on repeatedly downsampled low/high-resolution pairs.</p>
+
+<h3>Mineral identification</h3>
+<p>Comparing preprocessed imagery against laboratory spectra from the USGS library by Spectral Angle Mapper, with vegetation and water masked out first using the indices above. Naively this is O(n<sub>mat</sub> · n<sub>bands</sub> · w · h); a multithreaded batch matrix implementation makes it tractable on full scenes.</p>
+
+<h2>Results</h2>
+<ul>
+  <li>ZSSR 25.57&nbsp;dB against 24.23&nbsp;dB for trilinear interpolation</li>
+  <li>~1000&times; speedup on spectral angle matching for large images</li>
+  <li>Dual-branch cloud removal 28.9&nbsp;dB / 0.87 SSIM on SEN12MS-CR, over 27.1 / 0.84 for the best single-branch baseline</li>
+</ul>
+
+<h2>The rest of the pipeline</h2>
+<p>Contributed by the other three: hyperspectral image stitching with spectral integrity preserved; a dual-branch cloud removal architecture routing between NAFNet for thin cloud and SwinIR for thick cloud by predicted opacity; SAM-guided object removal and insertion with DiffusionSat inpainting and Poisson blending; U-Net semantic segmentation with recolouring and saliency operations; and depth extraction fusing LiDAR canopy height models with spectrally derived bathymetry.</p>
+
+<p class="note">A known limitation: without on-site reference spectra the mineral matching cannot resolve mixtures.</p>
+
+<footer>
+  <a href="../../">Back to index</a>
+</footer>
+
+</body>
+</html>

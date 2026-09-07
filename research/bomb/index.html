@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>What vision–language–action models fail to ground — Paul Misterka</title>
+<meta name="description" content="BOMB, a Go-stone placement benchmark showing that state-of-the-art VLA policies collapse under visual perturbation.">
+<link rel="canonical" href="https://paulm.ist/research/bomb/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="What vision–language–action models fail to ground">
+<meta property="og:description" content="BOMB, a Go-stone placement benchmark showing that state-of-the-art VLA policies collapse under visual perturbation.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ctext y='26' font-size='26' font-family='Helvetica,Arial'%3EP%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+
+<p class="back"><a href="../../">&larr; Paul Misterka</a></p>
+
+<h1>What vision–language–action models fail to ground</h1>
+<p class="meta">February – April 2026 · BOMB: a Board Manipulation Benchmark · <a href="https://hackmd.io/@soZ5hy2XQ5ia8pihx7AdHQ/r1gbwuUibe">full write-up</a> · <a href="https://github.com/squarerootminusone/BOMB">code</a></p>
+
+<p>Current VLA benchmarks reward coarse semantic manipulation — pick the red block, open the drawer — and so overstate how well these policies handle the fine spatial grounding that real tasks need. We built a simulated Go-stone placement benchmark, where the policy must put a stone on a board coordinate named in language, and evaluated OpenVLA, OpenVLA-OFT, SpatialVLA and &pi;<sub>0</sub> on it.</p>
+
+<p>Beyond success rates, we ran intervention-based explainability: masking image patches and text tokens to find which inputs the policy actually consumes, and activation mapping to localise where in the network the coordinate is processed. The dominant failure mode is specific — models track the stone and the gripper adequately, but do not robustly ground a language-specified coordinate to a placement location.</p>
+
+<h2>Results</h2>
+<ul>
+  <li>34% success for OpenVLA without perturbation</li>
+  <li>0% for every model under visual distribution shift — lighting, camera pose, object arrangement</li>
+  <li>Offline metrics stayed reasonable throughout the collapse, which is why the brittleness does not show up in standard evaluation</li>
+</ul>
+
+<h2>Method</h2>
+<ul>
+  <li>Go stone placement in simulation: identify a stone, place it at a board coordinate given in the instruction</li>
+  <li>Controlled testing with and without visual perturbations</li>
+  <li>Interventions: image-patch and text-token masking to measure what the policy actually reads</li>
+  <li>Activation mapping to localise where critical information is processed across layers</li>
+</ul>
+
+<p class="note">Joint work with two others on the TU Delft MSc AI programme.</p>
+
+<footer>
+  <a href="../../">Back to index</a>
+</footer>
+
+</body>
+</html>
