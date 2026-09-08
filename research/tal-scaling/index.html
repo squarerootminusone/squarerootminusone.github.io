@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Data scaling laws of Temporal Action Localization models — Paul Misterka</title>
+<meta name="description" content="Fitting five-parameter logistic learning curves to temporal action localization models, so full-dataset accuracy can be predicted from a small fraction of the data.">
+<link rel="canonical" href="https://paulm.ist/research/tal-scaling/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Data scaling laws of Temporal Action Localization models">
+<meta property="og:description" content="Fitting five-parameter logistic learning curves to temporal action localization models, so full-dataset accuracy can be predicted from a small fraction of the data.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ctext y='26' font-size='26' font-family='Helvetica,Arial'%3EP%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+
+<p class="back"><a href="../../">&larr; Paul Misterka</a></p>
+
+<h1>Data scaling laws of Temporal Action Localization models</h1>
+<p class="meta">June 2023 · BSc thesis, TU Delft Computer Vision Lab · advised by A. Lengyel and O. Strafforello · <a href="tal-thesis.pdf">PDF</a></p>
+
+<p>Training a temporal action localization model on THUMOS14 costs hours of GPU time, and you only learn what it is worth after the run finishes. If the relationship between dataset fraction and accuracy has a predictable shape, that run is unnecessary: fit the curve on a few cheap partial runs and read the full-data number off the fit.</p>
+
+<p>I trained TadTR, TriDet, ActionFormer and TemporalMaxer on percentage-wise subsets of THUMOS14, sampled without regard to class distribution and averaged over multiple draws, then fitted learning curves to the resulting fraction-versus-mAP points.</p>
+
+<h2>Findings</h2>
+<ul>
+  <li>The exponential form usually assumed for learning curves fits worse than a <b>five-parameter logistic</b> (5PL). For TadTR the fit is
+    mAP&nbsp;=&nbsp;76.75&nbsp;&minus;&nbsp;72.38&nbsp;/&nbsp;(1&nbsp;+&nbsp;(x/1.2845)<sup>49.405</sup>)<sup>0.005437</sup>,
+    with a mean mAP deviation of 0.566&nbsp;&plusmn;&nbsp;0.30 while using roughly a fifth of the dataset.</li>
+  <li>The same form holds across architectures: R<sup>2</sup> of 0.9999, 0.9991 and 0.9999 for TriDet, ActionFormer and TemporalMaxer.</li>
+  <li>Training on up to 10% of the dataset and extrapolating already predicts full-dataset accuracy well enough to rank candidate models before committing to a full run.</li>
+  <li>Models do not scale alike. TadTR peaks at 75% of the data (55.97 mAP) and gains nothing from the rest, while TriDet is still data-bound — its fit projects 74.72 mAP (+7.8) at three times the dataset size.</li>
+</ul>
+
+<h2>Limitations</h2>
+<ul>
+  <li>One dataset. THUMOS14 is too small for few-shot splits, so the subsets are percentage-wise rather than class-balanced.</li>
+  <li>The 3&times;-data extrapolation is outside the fitted range and assumes no overfitting — anecdotal, not a measurement.</li>
+</ul>
+
+<h2>Publication</h2>
+<ul class="plain">
+  <li><b>P. Misterka</b>, A. Lengyel, O. Strafforello. Efficient Temporal Action Localization model development practices. <i>BSc thesis, Delft University of Technology</i>, 2023. <a href="tal-thesis.pdf">PDF</a> · <a href="https://repository.tudelft.nl/islandora/object/uuid:7999191e-4956-4aee-bbcc-a0a8dac5a216">repository</a></li>
+</ul>
+
+<footer>
+  <a href="../../">Back to index</a>
+</footer>
+
+</body>
+</html>
