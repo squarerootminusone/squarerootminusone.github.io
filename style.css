@@ -112,8 +112,8 @@ ul.projects li {
 
 .thumb {
   flex: 0 0 auto;
-  width: 140px;
-  height: 92px;
+  width: 118px;
+  height: 78px;
   object-fit: contain;
   background: #ffffff;
   border: 1px solid #e5e5e5;
@@ -122,6 +122,29 @@ ul.projects li {
 ul.projects a { display: block; border-bottom: 0; flex: 0 0 auto; }
 ul.projects a:hover .thumb { border-color: #0b4fa8; }
 ul.projects a:focus-visible { outline: 2px solid #0b4fa8; outline-offset: 2px; }
+
+/* larger projects: text full width, image strip underneath */
+ul.projects li.wide {
+  flex-direction: column;
+  align-items: stretch;
+  gap: .5em;
+  margin: 1.4em 0;
+}
+
+.shots { display: flex; gap: .5em; }
+ul.projects .shots a {
+  flex-grow: var(--ar, 1);
+  flex-shrink: 1;
+  flex-basis: 0;
+  min-width: 0;
+}
+.shots img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid #e5e5e5;
+}
+.shots a:hover img { border-color: #0b4fa8; }
 
 figure { margin: 1.5em 0; }
 figure img {
@@ -199,4 +222,6 @@ footer {
   .tabs { position: static; }
   .photo { width: 118px; margin-top: 0; }
   .tabs { flex-direction: row; flex-wrap: wrap; gap: .2em 1.2em; margin-top: .8em; }
+  .shots { flex-wrap: wrap; }
+  ul.projects .shots a { flex-basis: 100%; }
 }
