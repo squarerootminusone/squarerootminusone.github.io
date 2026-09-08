@@ -1,43 +1,61 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 486" width="400" height="486" role="img" aria-labelledby="t d">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 500" width="320" height="500" role="img" aria-labelledby="t d">
 <title id="t">beepboop3000 signal path</title>
-<desc id="d">Sensors feed a Raspberry Pi 3B running ROS 2. Its GPIO pins drive two L298N H-bridges, which drive four DC motors from an eight-cell AA pack.</desc>
+<desc id="d">Lidar, camera and IMU feed a Raspberry Pi 3B running ROS 2; its GPIO pins drive two L298N H-bridges, which drive four motors.</desc>
 <style>
-  .box  { fill: #ffffff; stroke: #111111; stroke-width: 2.5; }
-  .lbl  { font-family: Helvetica, Arial, sans-serif; font-size: 30px; font-weight: 600; text-anchor: middle; fill: #111111; }
-  .sub  { font-family: Helvetica, Arial, sans-serif; font-size: 23px; text-anchor: middle; fill: #555555; }
-  .tag  { font-family: Helvetica, Arial, sans-serif; font-size: 21px; fill: #555555; }
-  .wire { stroke: #111111; stroke-width: 2.5; fill: none; }
+  .s   { fill: none; stroke: #111111; stroke-width: 5; stroke-linecap: round; stroke-linejoin: round; }
+  .f   { fill: #111111; }
+  .lbl { font-family: Helvetica, Arial, sans-serif; font-size: 34px; font-weight: 700; text-anchor: middle; fill: #111111; }
+  .tag { font-family: Helvetica, Arial, sans-serif; font-size: 26px; text-anchor: middle; fill: #666666; }
 </style>
 
-<rect width="400" height="486" fill="#ffffff"/>
+<rect width="320" height="500" fill="#ffffff"/>
 
 <defs>
-  <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+  <marker id="a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto">
     <path d="M0,0 L10,5 L0,10 z" fill="#111111"/>
   </marker>
 </defs>
 
-<rect class="box" x="40" y="14" width="320" height="88" rx="3"/>
-<text class="lbl" x="200" y="50">SENSORS</text>
-<text class="sub" x="200" y="80">LIDAR · CAM · IMU</text>
+<!-- lidar -->
+<circle class="s" cx="50" cy="52" r="26"/>
+<circle class="f" cx="50" cy="52" r="8"/>
+<path class="s" d="M84,36 L104,26 M84,52 L106,52 M84,68 L104,78"/>
 
-<path class="wire" d="M200,102 V126" marker-end="url(#ar)"/>
+<!-- camera -->
+<rect class="s" x="128" y="30" width="64" height="46" rx="5"/>
+<circle class="s" cx="160" cy="53" r="13"/>
 
-<rect class="box" x="40" y="134" width="320" height="88" rx="3"/>
-<text class="lbl" x="200" y="170">RASPBERRY PI 3B</text>
-<text class="sub" x="200" y="200">ROS 2 · cmd_vel</text>
+<!-- imu -->
+<rect class="s" x="234" y="30" width="46" height="46" rx="4"/>
+<path class="s" d="M257,53 V38 M257,53 H274 M257,53 L245,66"/>
 
-<path class="wire" d="M200,222 V254" marker-end="url(#ar)"/>
-<text class="tag" x="212" y="245">12 × GPIO</text>
+<path class="s" d="M160,96 V132" marker-end="url(#a)"/>
 
-<rect class="box" x="40" y="262" width="320" height="88" rx="3"/>
-<text class="lbl" x="200" y="298">2 × L298N</text>
-<text class="sub" x="200" y="328">DUAL H-BRIDGE</text>
+<!-- raspberry pi -->
+<rect class="s" x="34" y="140" width="252" height="92" rx="6"/>
+<rect class="s" x="52" y="162" width="52" height="48" rx="3"/>
+<path class="s" d="M52,152 H104"/>
+<text class="lbl" x="200" y="198">PI 3B</text>
 
-<path class="wire" d="M200,350 V382" marker-end="url(#ar)"/>
-<text class="tag" x="212" y="373">PWM</text>
+<path class="s" d="M160,244 V284" marker-end="url(#a)"/>
+<text class="tag" x="216" y="272">GPIO</text>
 
-<rect class="box" x="40" y="390" width="320" height="88" rx="3"/>
-<text class="lbl" x="200" y="426">4 × TT MOTOR</text>
-<text class="sub" x="200" y="456">TT DC · 65 mm</text>
+<!-- h-bridges -->
+<rect class="s" x="36" y="292" width="112" height="76" rx="5"/>
+<text class="lbl" x="92" y="342">H</text>
+<rect class="s" x="172" y="292" width="112" height="76" rx="5"/>
+<text class="lbl" x="228" y="342">H</text>
+
+<path class="s" d="M160,380 V420" marker-end="url(#a)"/>
+<text class="tag" x="214" y="408">PWM</text>
+
+<!-- motors -->
+<circle class="s" cx="48" cy="460" r="28"/>
+<text class="lbl" x="48" y="472">M</text>
+<circle class="s" cx="123" cy="460" r="28"/>
+<text class="lbl" x="123" y="472">M</text>
+<circle class="s" cx="198" cy="460" r="28"/>
+<text class="lbl" x="198" y="472">M</text>
+<circle class="s" cx="273" cy="460" r="28"/>
+<text class="lbl" x="273" y="472">M</text>
 </svg>
