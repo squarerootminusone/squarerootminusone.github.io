@@ -3,11 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Data scaling laws of Temporal Action Localization models — Paul Misterka</title>
+<title>Efficient Temporal Action Localization model development practices — Paul Misterka</title>
 <meta name="description" content="Fitting five-parameter logistic learning curves to temporal action localization models, so full-dataset accuracy can be predicted from a small fraction of the data.">
 <link rel="canonical" href="https://paulm.ist/research/tal-scaling/">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Data scaling laws of Temporal Action Localization models">
+<meta property="og:title" content="Efficient Temporal Action Localization model development practices">
 <meta property="og:description" content="Fitting five-parameter logistic learning curves to temporal action localization models, so full-dataset accuracy can be predicted from a small fraction of the data.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ctext y='26' font-size='26' font-family='Helvetica,Arial'%3EP%3C/text%3E%3C/svg%3E">
 <link rel="stylesheet" href="../../style.css">
@@ -16,8 +16,8 @@
 
 <p class="back"><a href="../../">&larr; Paul Misterka</a></p>
 
-<h1>Data scaling laws of Temporal Action Localization models</h1>
-<p class="meta">June 2023 · BSc thesis, TU Delft Computer Vision Lab · advised by A. Lengyel and O. Strafforello · <a href="tal-thesis.pdf">PDF</a></p>
+<h1>Efficient Temporal Action Localization model development practices</h1>
+<p class="meta">May 2023 · BSc thesis, TU Delft Computer Vision Lab · advised by A. Lengyel and O. Strafforello · <a href="tal-thesis.pdf">PDF</a></p>
 
 <p>Training a temporal action localization model on THUMOS14 costs hours of GPU time, and you only learn what it is worth after the run finishes. If the relationship between dataset fraction and accuracy has a predictable shape, that run is unnecessary: fit the curve on a few cheap partial runs and read the full-data number off the fit.</p>
 
