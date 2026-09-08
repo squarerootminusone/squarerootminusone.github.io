@@ -1,197 +1,43 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 900" width="720" height="900" role="img" aria-labelledby="t d">
-<title id="t">beepboop3000 (bb3) wiring schematic</title>
-<desc id="d">Schematic of the bb3 rover. Four sensors feed a Raspberry Pi 3B over USB, CSI, I2C and GPIO. The Pi's GPIO pins drive two L298N dual H-bridges, each with enable and direction inputs, and each bridge drives two TT DC motors. Two eight-cell NiMH packs supply the bridges, one per side. Twist commands arrive over Wi-Fi.</desc>
-
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 486" width="400" height="486" role="img" aria-labelledby="t d">
+<title id="t">beepboop3000 signal path</title>
+<desc id="d">Sensors feed a Raspberry Pi 3B running ROS 2. Its GPIO pins drive two L298N H-bridges, which drive four DC motors from an eight-cell AA pack.</desc>
 <style>
-  .w    { stroke:#1a1a1a; stroke-width:1; fill:none; }
-  .thin { stroke:#1a1a1a; stroke-width:.8; fill:none; }
-  .encl { stroke:#1a1a1a; stroke-width:1; fill:none; stroke-dasharray:5 3; }
-  .part { stroke:#1a1a1a; stroke-width:1; fill:#ffffff; }
-  .lab  { font:8.5px -apple-system,"Segoe UI",Helvetica,Arial,sans-serif; fill:#1a1a1a; letter-spacing:.06em; }
-  .pin  { font:7.5px ui-monospace,Menlo,Consolas,monospace; fill:#1a1a1a; }
-  .ttl  { font:600 9.5px -apple-system,"Segoe UI",Helvetica,Arial,sans-serif; fill:#1a1a1a; letter-spacing:.09em; }
-  .note { font:8px -apple-system,"Segoe UI",Helvetica,Arial,sans-serif; fill:#5a5a5a; letter-spacing:.03em; }
-  .cap  { font:8.5px -apple-system,"Segoe UI",Helvetica,Arial,sans-serif; fill:#6a6a6a; }
+  .box  { fill: #ffffff; stroke: #111111; stroke-width: 2.5; }
+  .lbl  { font-family: Helvetica, Arial, sans-serif; font-size: 30px; font-weight: 600; text-anchor: middle; fill: #111111; }
+  .sub  { font-family: Helvetica, Arial, sans-serif; font-size: 23px; text-anchor: middle; fill: #555555; }
+  .tag  { font-family: Helvetica, Arial, sans-serif; font-size: 21px; fill: #555555; }
+  .wire { stroke: #111111; stroke-width: 2.5; fill: none; }
 </style>
 
+<rect width="400" height="486" fill="#ffffff"/>
+
 <defs>
-  <g id="chev"><path class="thin" d="M-4,-4 L0,0 L-4,4"/><path class="thin" d="M0,-4 L4,0 L0,4"/></g>
-  <g id="gnd"><path class="thin" d="M0,0 V6 M-6,6 H6 M-4,9 H4 M-2,12 H2"/></g>
-  <g id="batt"><path class="thin" d="M0,0 H26 M0,-7 V7 M8,-4 V4 M8,0 H8 M13,-7 V7 M21,-4 V4"/></g>
+  <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+    <path d="M0,0 L10,5 L0,10 z" fill="#111111"/>
+  </marker>
 </defs>
 
-<rect x="0" y="0" width="720" height="900" fill="#ffffff"/>
-<rect class="thin" x="10" y="10" width="700" height="880"/>
+<rect class="box" x="40" y="14" width="320" height="88" rx="3"/>
+<text class="lbl" x="200" y="50">SENSORS</text>
+<text class="sub" x="200" y="80">LIDAR · CAM · IMU</text>
 
-<text class="ttl" x="26" y="34">BEEPBOOP3000 [BB3]</text>
-<text class="note" x="26" y="47">RASPBERRY PI 3B · ROS 2 FOXY · PIGPIO · SKID-STEER ROVER</text>
+<path class="wire" d="M200,102 V126" marker-end="url(#ar)"/>
 
-<!-- ══ SENSORS ══════════════════════════════════════════════ -->
-<rect class="encl" x="34" y="66" width="560" height="104"/>
-<text class="ttl" x="580" y="80" text-anchor="end">SENSORS</text>
+<rect class="box" x="40" y="134" width="320" height="88" rx="3"/>
+<text class="lbl" x="200" y="170">RASPBERRY PI 3B</text>
+<text class="sub" x="200" y="200">ROS 2 · cmd_vel</text>
 
-<!-- lidar -->
-<rect class="part" x="52" y="86" width="60" height="46"/>
-<circle class="thin" cx="82" cy="105" r="12"/>
-<path class="thin" d="M82,105 L92,99"/>
-<path class="thin" d="M70,113 A15,15 0 0 0 94,113"/>
-<text class="lab" x="82" y="146" text-anchor="middle">YDLIDAR X4</text>
-<text class="note" x="82" y="158" text-anchor="middle">5 Hz · 0.5° · 10 m</text>
+<path class="wire" d="M200,222 V254" marker-end="url(#ar)"/>
+<text class="tag" x="212" y="245">12 × GPIO</text>
 
-<!-- camera -->
-<rect class="part" x="184" y="86" width="60" height="46"/>
-<rect class="thin" x="198" y="96" width="32" height="26"/>
-<circle class="thin" cx="214" cy="109" r="8"/>
-<circle class="thin" cx="214" cy="109" r="3"/>
-<text class="lab" x="214" y="146" text-anchor="middle">PI HQ CAMERA</text>
-<text class="note" x="214" y="158" text-anchor="middle">6 mm LENS</text>
+<rect class="box" x="40" y="262" width="320" height="88" rx="3"/>
+<text class="lbl" x="200" y="298">2 × L298N</text>
+<text class="sub" x="200" y="328">DUAL H-BRIDGE</text>
 
-<!-- imu -->
-<rect class="part" x="316" y="86" width="60" height="46"/>
-<path class="thin" d="M346,120 V94 M346,120 L330,128 M346,120 L364,112"/>
-<text class="lab" x="346" y="146" text-anchor="middle">MPU9250</text>
-<text class="note" x="346" y="158" text-anchor="middle">9-DOF IMU</text>
+<path class="wire" d="M200,350 V382" marker-end="url(#ar)"/>
+<text class="tag" x="212" y="373">PWM</text>
 
-<!-- ultrasonic -->
-<rect class="part" x="448" y="86" width="60" height="46"/>
-<circle class="thin" cx="465" cy="109" r="9"/>
-<circle class="thin" cx="491" cy="109" r="9"/>
-<path class="thin" d="M474,103 q4,6 0,12 M480,100 q6,9 0,18"/>
-<text class="lab" x="478" y="146" text-anchor="middle">HC-SR04</text>
-<text class="note" x="478" y="158" text-anchor="middle">ULTRASONIC</text>
-
-<!-- sensor buses down to the Pi -->
-<path class="w" d="M82,132 V196"/>   <text class="pin" x="88" y="188">USB</text>
-<path class="w" d="M214,132 V196"/>  <text class="pin" x="220" y="188">CSI</text>
-<path class="w" d="M346,132 V196"/>  <text class="pin" x="352" y="188">I2C SDA/SCL</text>
-<path class="w" d="M478,132 V196"/>  <text class="pin" x="484" y="188">GPIO TRIG/ECHO</text>
-<use href="#chev" x="82"  y="176"  transform="rotate(90 82 176)"/>
-<use href="#chev" x="214" y="176"  transform="rotate(90 214 176)"/>
-<use href="#chev" x="346" y="176"  transform="rotate(90 346 176)"/>
-<use href="#chev" x="478" y="176"  transform="rotate(90 478 176)"/>
-
-<!-- ══ HOST ═════════════════════════════════════════════════ -->
-<rect class="encl" x="34" y="196" width="560" height="150"/>
-<text class="ttl" x="48" y="214">RASPBERRY PI 3B</text>
-<text class="note" x="48" y="227">ROS 2 FOXY · pigpiod</text>
-
-<rect class="part" x="200" y="240" width="230" height="66"/>
-<text class="ttl" x="315" y="260" text-anchor="middle">bb3 NODE</text>
-<text class="note" x="315" y="275" text-anchor="middle">Vehicle : rclcpp::Node</text>
-<text class="note" x="315" y="288" text-anchor="middle">Twist → clamp [−1,1] → mix → 4 × PWM</text>
-<text class="note" x="315" y="300" text-anchor="middle">a turn slows the inner pair</text>
-
-<!-- wifi -->
-<path class="thin" d="M556,250 V226 M546,218 L556,226 L566,218"/>
-<path class="thin" d="M541,212 q15,-12 30,0 M536,204 q20,-17 40,0"/>
-<text class="lab" x="556" y="266" text-anchor="middle">WLAN0</text>
-<text class="note" x="556" y="278" text-anchor="middle">192.168.0.200/24</text>
-<text class="note" x="556" y="290" text-anchor="middle">geometry_msgs/Twist</text>
-<path class="w" d="M430,273 H520"/>
-<use href="#chev" x="470" y="273" transform="rotate(180 470 273)"/>
-
-<!-- ══ GPIO RAILS ═══════════════════════════════════════════ -->
-<text class="ttl" x="48" y="372">GPIO</text>
-<g class="pin">
-  <text x="94"  y="372" text-anchor="middle">26</text>
-  <text x="130" y="372" text-anchor="middle">19</text>
-  <text x="166" y="372" text-anchor="middle">13</text>
-  <text x="202" y="372" text-anchor="middle">11</text>
-  <text x="238" y="372" text-anchor="middle">6</text>
-  <text x="274" y="372" text-anchor="middle">5</text>
-  <text x="386" y="372" text-anchor="middle">21</text>
-  <text x="422" y="372" text-anchor="middle">20</text>
-  <text x="458" y="372" text-anchor="middle">16</text>
-  <text x="494" y="372" text-anchor="middle">25</text>
-  <text x="530" y="372" text-anchor="middle">12</text>
-  <text x="566" y="372" text-anchor="middle">7</text>
-</g>
-<g class="w">
-  <path d="M94,346 V440"/>  <path d="M130,346 V440"/> <path d="M166,346 V440"/>
-  <path d="M202,346 V440"/> <path d="M238,346 V440"/> <path d="M274,346 V440"/>
-  <path d="M386,346 V440"/> <path d="M422,346 V440"/> <path d="M458,346 V440"/>
-  <path d="M494,346 V440"/> <path d="M530,346 V440"/> <path d="M566,346 V440"/>
-</g>
-<g>
-  <use href="#chev" x="94"  y="410" transform="rotate(90 94 410)"/>
-  <use href="#chev" x="130" y="410" transform="rotate(90 130 410)"/>
-  <use href="#chev" x="166" y="410" transform="rotate(90 166 410)"/>
-  <use href="#chev" x="202" y="410" transform="rotate(90 202 410)"/>
-  <use href="#chev" x="238" y="410" transform="rotate(90 238 410)"/>
-  <use href="#chev" x="274" y="410" transform="rotate(90 274 410)"/>
-  <use href="#chev" x="386" y="410" transform="rotate(90 386 410)"/>
-  <use href="#chev" x="422" y="410" transform="rotate(90 422 410)"/>
-  <use href="#chev" x="458" y="410" transform="rotate(90 458 410)"/>
-  <use href="#chev" x="494" y="410" transform="rotate(90 494 410)"/>
-  <use href="#chev" x="530" y="410" transform="rotate(90 530 410)"/>
-  <use href="#chev" x="566" y="410" transform="rotate(90 566 410)"/>
-</g>
-
-<!-- ══ LEFT BRIDGE ══════════════════════════════════════════ -->
-<rect class="encl" x="66" y="440" width="240" height="110"/>
-<text class="ttl" x="186" y="458" text-anchor="middle">L298N — LEFT</text>
-<g class="pin" text-anchor="middle">
-  <text x="94"  y="474">ENA</text><text x="130" y="474">IN1</text><text x="166" y="474">IN2</text>
-  <text x="202" y="474">ENB</text><text x="238" y="474">IN3</text><text x="274" y="474">IN4</text>
-</g>
-<rect class="part" x="86" y="482" width="200" height="34"/>
-<text class="note" x="186" y="504" text-anchor="middle">DUAL H-BRIDGE</text>
-<path class="w" d="M126,516 V566"/><path class="w" d="M246,516 V566"/>
-<text class="pin" x="132" y="540">OUT1/2</text>
-<text class="pin" x="252" y="540">OUT3/4</text>
-
-<!-- ══ RIGHT BRIDGE ═════════════════════════════════════════ -->
-<rect class="encl" x="358" y="440" width="240" height="110"/>
-<text class="ttl" x="478" y="458" text-anchor="middle">L298N — RIGHT</text>
-<g class="pin" text-anchor="middle">
-  <text x="386" y="474">ENA</text><text x="422" y="474">IN1</text><text x="458" y="474">IN2</text>
-  <text x="494" y="474">ENB</text><text x="530" y="474">IN3</text><text x="566" y="474">IN4</text>
-</g>
-<rect class="part" x="378" y="482" width="200" height="34"/>
-<text class="note" x="478" y="504" text-anchor="middle">DUAL H-BRIDGE</text>
-<path class="w" d="M418,516 V566"/><path class="w" d="M538,516 V566"/>
-<text class="pin" x="424" y="540">OUT1/2</text>
-<text class="pin" x="544" y="540">OUT3/4</text>
-
-<!-- ══ MOTORS ═══════════════════════════════════════════════ -->
-<g>
-  <circle class="part" cx="126" cy="588" r="22"/><text class="ttl" x="126" y="592" text-anchor="middle">M</text>
-  <circle class="part" cx="246" cy="588" r="22"/><text class="ttl" x="246" y="592" text-anchor="middle">M</text>
-  <circle class="part" cx="418" cy="588" r="22"/><text class="ttl" x="418" y="592" text-anchor="middle">M</text>
-  <circle class="part" cx="538" cy="588" r="22"/><text class="ttl" x="538" y="592" text-anchor="middle">M</text>
-</g>
-<text class="lab" x="126" y="628" text-anchor="middle">TT DC</text>
-<text class="lab" x="246" y="628" text-anchor="middle">TT DC</text>
-<text class="lab" x="418" y="628" text-anchor="middle">TT DC</text>
-<text class="lab" x="538" y="628" text-anchor="middle">TT DC</text>
-<text class="note" x="186" y="644" text-anchor="middle">LEFT PAIR · 65 mm WHEELS</text>
-<text class="note" x="478" y="644" text-anchor="middle">RIGHT PAIR · 65 mm WHEELS</text>
-
-<!-- ══ POWER ════════════════════════════════════════════════ -->
-<rect class="encl" x="34" y="680" width="560" height="94"/>
-<text class="ttl" x="580" y="696" text-anchor="end">POWER</text>
-
-<use href="#batt" x="86" y="722"/>
-<use href="#gnd" x="86" y="730"/>
-<text class="lab" x="126" y="720">8 × AA NiMH</text>
-<text class="note" x="126" y="733">1.2 V · 1900 mAh</text>
-
-<use href="#batt" x="378" y="722"/>
-<use href="#gnd" x="378" y="730"/>
-<text class="lab" x="418" y="720">8 × AA NiMH</text>
-<text class="note" x="418" y="733">1.2 V · 1900 mAh</text>
-
-<path class="w" d="M112,722 H320 V532 H286"/>
-<path class="w" d="M404,722 H612 V532 H578"/>
-<text class="pin" x="326" y="600">Vs</text>
-<text class="pin" x="618" y="600">Vs</text>
-<use href="#chev" x="320" y="640" transform="rotate(-90 320 640)"/>
-<use href="#chev" x="612" y="640" transform="rotate(-90 612 640)"/>
-
-<!-- ══ NOTES ════════════════════════════════════════════════ -->
-<line class="thin" x1="34" y1="800" x2="686" y2="800"/>
-<text class="cap" x="34" y="820">ONE PACK PER BRIDGE. EACH BRIDGE CHANNEL TAKES TWO DIRECTION PINS AND ONE PWM ENABLE; Motor::set() WRITES DUTY 0–255.</text>
-<text class="cap" x="34" y="836">SENSOR BLOCKS ARE ON THE PLATFORM BUT HAVE NO DRIVER IN THE bb3 ROS PACKAGE — IT IMPLEMENTS THE TWIST → MOTOR PATH ONLY.</text>
-<text class="cap" x="34" y="856">PIN NUMBERS AND MIXING TAKEN FROM main.cpp, Vehicle.h AND Motor.h. INTERFACES (USB, CSI, I2C) ARE THOSE OF THE PARTS LISTED IN THE README.</text>
-<text class="cap" x="34" y="876">PLANNED: JETSON NANO · 80 mm MECANUM WHEELS · 775 MOTORS · 4S LiPo · 4-CHANNEL BRIDGE · CUSTOM CHASSIS.</text>
+<rect class="box" x="40" y="390" width="320" height="88" rx="3"/>
+<text class="lbl" x="200" y="426">4 × TT MOTOR</text>
+<text class="sub" x="200" y="456">TT DC · 65 mm</text>
 </svg>
