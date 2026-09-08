@@ -136,6 +136,8 @@ ul.projects li.wide {
   margin: 1.4em 0;
 }
 
+.pname { display: block; font-weight: 700; }
+
 .shots { display: flex; gap: .5em; align-items: flex-start; }
 ul.projects .shots a { flex: 0 0 auto; }
 .shots img {
