@@ -87,6 +87,7 @@ ul.rows li {
 
 
 ul.contact { list-style: none; padding-left: 0; margin: 1.2em 0 0; }
+ul.contact + h2 { margin-top: 1.5em; }
 ul.contact li { display: inline; margin: 0; }
 ul.contact li::after { content: " · "; color: #999999; }
 ul.contact li:last-child::after { content: ""; }
