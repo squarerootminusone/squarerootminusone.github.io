@@ -114,7 +114,9 @@ ul.projects li {
   margin: 1.1em 0;
 }
 
+ul.projects > li:not(.wide) { flex-direction: row-reverse; }
 ul.projects > li > a { flex: 0 0 auto; }
+ul.projects > li > div { flex: 1 1 auto; min-width: 0; }
 
 .thumb {
   display: block;
@@ -149,10 +151,10 @@ ul.projects a:focus-visible img {
   box-shadow: 0 3px 16px rgba(0, 0, 0, .22);
 }
 /* pin the origin at the row edges so nothing grows off the page */
-ul.projects > li > a:hover img,
-ul.projects > li > a:focus-visible img,
 .shots a:first-child:hover img,
 .shots a:first-child:focus-visible img { transform-origin: left center; }
+ul.projects > li > a:hover img,
+ul.projects > li > a:focus-visible img,
 .shots a:last-child:hover img,
 .shots a:last-child:focus-visible img { transform-origin: right center; }
 
@@ -161,7 +163,7 @@ ul.projects > li > a:focus-visible img,
 }
 
 
-.shots { display: flex; gap: .5em; align-items: flex-start; }
+.shots { display: flex; flex-wrap: wrap; gap: .5em; align-items: flex-start; }
 ul.projects .shots a { flex: 0 0 auto; }
 .shots img {
   display: block;
