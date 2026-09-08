@@ -113,7 +113,7 @@ ul.projects li {
   margin: 1.1em 0;
 }
 
-ul.projects > li > a { flex: 0 0 230px; }
+ul.projects > li > a { flex: 0 0 auto; }
 
 .thumb {
   display: block;
@@ -137,6 +137,28 @@ ul.projects li.wide {
 }
 
 .pname { display: block; font-weight: 700; }
+
+/* hover magnifies the image in place, above its neighbours */
+ul.projects img { transition: transform .15s ease-out, box-shadow .15s ease-out, border-color .15s ease-out; }
+ul.projects a:hover img,
+ul.projects a:focus-visible img {
+  position: relative;
+  z-index: 3;
+  transform: scale(1.55);
+  box-shadow: 0 3px 16px rgba(0, 0, 0, .22);
+}
+/* pin the origin at the row edges so nothing grows off the page */
+ul.projects > li > a:hover img,
+ul.projects > li > a:focus-visible img,
+.shots a:first-child:hover img,
+.shots a:first-child:focus-visible img { transform-origin: left center; }
+.shots a:last-child:hover img,
+.shots a:last-child:focus-visible img { transform-origin: right center; }
+
+@media (prefers-reduced-motion: reduce) {
+  ul.projects img { transition: none; }
+}
+
 
 .shots { display: flex; gap: .5em; align-items: flex-start; }
 ul.projects .shots a { flex: 0 0 auto; }
@@ -225,6 +247,5 @@ footer {
   .photo { width: 118px; margin-top: 0; }
   .tabs { flex-direction: row; flex-wrap: wrap; gap: .2em 1.2em; margin-top: .8em; }
   ul.projects { --shot-h: 108px; }
-  ul.projects > li > a { flex: 0 0 auto; }
   .shots { flex-wrap: wrap; }
 }
