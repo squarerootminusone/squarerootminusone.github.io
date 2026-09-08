@@ -163,13 +163,28 @@ ul.projects > li > a:focus-visible img,
 }
 
 
-.shots { display: flex; flex-wrap: wrap; gap: .5em; align-items: flex-start; }
-ul.projects .shots a { flex: 0 0 auto; }
+.shots { display: flex; gap: .5em; align-items: flex-start; }
+
+/* one line always: the strip crops from the right rather than wrapping */
+ul.projects .shots a {
+  flex: 0 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  background: #ffffff;
+  border: 1px solid #e5e5e5;
+}
+ul.projects .shots a:hover,
+ul.projects .shots a:focus-visible {
+  overflow: visible;
+  position: relative;
+  z-index: 3;
+  border-color: #0b4fa8;
+}
 .shots img {
   display: block;
   height: var(--shot-h);
   width: auto;
-  border: 1px solid #e5e5e5;
+  max-width: none;
 }
 .shots a:hover img { border-color: #0b4fa8; }
 
