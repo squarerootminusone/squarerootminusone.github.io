@@ -36,6 +36,26 @@
     color: #0000EE;
     text-decoration: underline;
   }
+  .peek {
+    text-decoration: underline dotted;
+    text-underline-offset: 3px;
+    cursor: default;
+  }
+  #peek {
+    position: fixed;
+    left: 0;
+    top: 0;
+    display: none;
+    z-index: 10;
+    pointer-events: none;
+    background: #fff;
+    border: 1px solid #000;
+  }
+  #peek img {
+    display: none;
+    max-width: calc(100vw - 26px);
+    height: auto;
+  }
 </style>
 </head>
 <body>
@@ -44,11 +64,72 @@
 
 <p>Great to meet you!</p>
 
-<p>After AWS, microagi, and Palantir, I'm currently researching how to learn chaotic dynamics at EPFL's <a href="https://vilab.epfl.ch/">VILAB</a>. I'm also interested in physically-accurate world models, generative morphology design, and multi-agent reinforcement learning.</p>
+<p>After AWS, microagi, and Palantir, I'm currently researching how to learn chaotic dynamics at EPFL's <a href="https://vilab.epfl.ch/">VILAB</a>. I'm also interested in <span class="peek" data-peek="world-models">physically-accurate world models</span>, <span class="peek" data-peek="morphology">generative morphology design</span>, and <span class="peek" data-peek="marl">multi-agent reinforcement learning</span>.</p>
 
 <p>In spare time I work on market prediction engines.</p>
 
 <p>If you wanna chat, shoot me a message on <a href="https://x.com/sqrt_minus_one">X</a> or <a href="https://www.linkedin.com/in/paulmis/">LinkedIn</a>.</p>
+
+<div id="peek" aria-hidden="true">
+  <img data-peek="world-models" src="hover/world-models.webp" width="344" height="172" alt="">
+  <img data-peek="morphology" src="hover/morphology.webp" width="300" height="300" alt="">
+  <img data-peek="marl" src="hover/marl.webp" width="440" height="297" alt="">
+</div>
+
+<script>
+(function () {
+  var box = document.getElementById('peek');
+  var imgs = {};
+  box.querySelectorAll('img').forEach(function (img) { imgs[img.dataset.peek] = img; });
+  var current = null;
+  var lastPointer = 'mouse';
+
+  function place(x, y) {
+    var w = box.offsetWidth, h = box.offsetHeight, m = 12;
+    var left = Math.max(m, Math.min(x + 16, window.innerWidth - w - m));
+    var top = y + 20;
+    if (top + h + m > window.innerHeight) top = y - h - 16;
+    box.style.left = left + 'px';
+    box.style.top = Math.max(m, top) + 'px';
+  }
+  function show(key, x, y) {
+    if (current) imgs[current].style.display = 'none';
+    current = key;
+    imgs[key].style.display = 'block';
+    box.style.display = 'block';
+    place(x, y);
+  }
+  function hide() {
+    if (!current) return;
+    imgs[current].style.display = 'none';
+    box.style.display = 'none';
+    current = null;
+  }
+
+  document.addEventListener('pointerdown', function (e) { lastPointer = e.pointerType; }, true);
+  document.querySelectorAll('.peek').forEach(function (el) {
+    var key = el.dataset.peek;
+    el.addEventListener('pointerenter', function (e) {
+      if (e.pointerType === 'mouse') show(key, e.clientX, e.clientY);
+    });
+    el.addEventListener('pointermove', function (e) {
+      if (e.pointerType === 'mouse' && current === key) place(e.clientX, e.clientY);
+    });
+    el.addEventListener('pointerleave', function (e) {
+      if (e.pointerType === 'mouse') hide();
+    });
+    el.addEventListener('click', function (e) {
+      if (lastPointer === 'mouse') return;
+      e.stopPropagation();
+      if (current === key) { hide(); return; }
+      show(key, 0, 0);
+      place(e.clientX - box.offsetWidth / 2 - 16, e.clientY);
+    });
+  });
+  document.addEventListener('click', hide);
+  window.addEventListener('scroll', hide, { passive: true });
+})();
+</script>
 
 </body>
 </html>
